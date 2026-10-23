@@ -17,7 +17,7 @@ docker run -it --rm php:8.3.36-cli-alpine  # remove after usage
 docker rm strange_hodgkin   # name
 docker rm 25ec0dd1153a      # id
 
-
+# conteneur en mode serveur
 docker run nginx:alpine  # nom aleatoire
     Ctrl-C
 docker rm  cranky_black
@@ -54,5 +54,32 @@ curl 172.16.27.10:8080   # IP host
 
 # choisir une interface
 docker run --name nginx-proxy -p 127.0.0.1:8080:80 -d nginx:alpine
+docker rm -f nginx-proxy
+```
+
+## Conteneur DB
+
+```sh
+docker run --detach --name mariadb-dbtrail --env MARIADB_ROOT_PASSWORD=my-secret-pw mariadb:12.3
+docker ps
+docker exec -it mariadb-dbtrail bash
+    ps -aef
+    mariadb -u root -p
+        show databases;
+        select host, user from mysql.user;
+
+docker run --name mariadb-dbtrail \
+    --env MARIADB_ROOT_PASSWORD=my-secret-pw \
+    --env MARIADB_USER=trailer \
+    --env MARIADB_USER_PASSWORD=my-secret-pw2 \
+    --env MARIADB_DATABASE=dbtrail \
+    -d mariadb:12.3
+
+docker run --name mariadb-dbtrail `
+    --env MARIADB_ROOT_PASSWORD=my-secret-pw `
+    --env MARIADB_USER=trailer `
+    --env MARIADB_USER_PASSWORD=my-secret-pw2 `
+    --env MARIADB_DATABASE=dbtrail `
+    -d mariadb:12.3
 ```
 

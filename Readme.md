@@ -74,7 +74,10 @@ docker run --name mariadb-dbtrail \
     --env MARIADB_USER_PASSWORD=my-secret-pw2 \
     --env MARIADB_DATABASE=dbtrail \
     -d mariadb:12.3
+```
 
+Idem en Powershell:
+```
 docker run --name mariadb-dbtrail `
     --env MARIADB_ROOT_PASSWORD=my-secret-pw `
     --env MARIADB_USER=trailer `
@@ -82,4 +85,37 @@ docker run --name mariadb-dbtrail `
     --env MARIADB_DATABASE=dbtrail `
     -d mariadb:12.3
 ```
+
+## Stockage des images
+Linux
+```
+sudo ls /var/lib/docker
+sudo du -sh /var/lib/docker
+```
+
+
+## Nettoyage
+docker ps -a
+docker rm mariadb-dbtrail
+
+en boucle
+docker ps -a --format "{{.Names}}" | xargs -r 
+
+```
+# lister les utilisations, espaces disques des images, volumes et conteneurs
+
+docker system df -v  
+
+docker image ls
+docker image rm nginx:alpine
+docker rmi php:latest
+docker rmi php:8.3.36-cli-alpine php:8.3.35-cli-alpine
+
+docker volume ls
+docker volume rm f620aa62a710bee8e7282cfbf99a75bb01b9345e7563eecde156c8dd55f6332a
+```
+
+
+
+
 
